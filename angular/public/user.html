@@ -1,0 +1,74 @@
+<div ng-controller="UserController" class="stretch" style="overflow-x: hidden">
+    <div class="row" style="margin-left: -10px; margin-right: -10px;{{table_container_height}};">
+        <div class="col-sm-3" style="padding-left: 10px;padding-right: 0px" >
+            <div class="table table-responsive" style="height:100%">
+                <!------------------>
+                <form class="form-horizontal form-validation">
+                    <div class="form-group" style="margin-right: 0px">
+                        <label class="col-sm-4 text-right control-label text-muted" style="margin-bottom: 0px">Part ID<i class="text-danger">*</i></label>
+                        <div class="col-sm-8 scrollable-dropdown-menu">
+                            <input class="form-control input-sm"  ng-model="part.part_id"  required popover-trigger="mouseenter">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-right: 0px">
+                        <label class="col-sm-4 text-right control-label text-muted" style="margin-bottom: 0px">Part Name<i class="text-danger">*</i></label>
+                        <div class="col-sm-8 scrollable-dropdown-menu">
+                            <input class="form-control input-sm"  ng-model="part.name"  required  popover-trigger="mouseenter">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-right: 0px">                       >
+                        <label class="col-sm-4 text-right control-label text-muted" style="margin-bottom: 0px">Picture</label>
+                        <div class="col-sm-8">
+                            <button class="btn btn-icon btn-info" style="cursor: pointer"><i class="fa fa-paperclip"></i></button>
+                            <div class="dropzone" file-dropzone="[image/png, image/jpeg, image/gif]"
+                                 file="image"  file-name="imageFileName"  data-max-file-size="3" >
+                            </div>
+                            <div class="image-container" >
+                                <img ng-src={{image}}  />
+                                <span class="file-name" >{{imageFileName}}</span>
+                            </div>
+                            <form action>
+                                <input type="file" fileread="uploadme.src" imagename="uploadme.imagename" imagetype="uploadme.imagetype"
+                                       style="opacity:0.001;width:35px;margin-top:-45px;max-height: 50px;" />
+                                <img ng-src="{{ uploadme.src }}"  style="margin-top:10px; width: 80px;height: 80px;">
+                            </form>
+                        </div>
+                    </div>
+                </form>
+                <!------------------>
+            </div>
+        </div>
+        <div class="col-sm-9" style="padding-left: 0px;padding-right: 5px;">
+            <div class="table table-responsive" style="height:100%">
+                <table  st-table="datalist"  st-pipe="getDetailCallList" style="width: 100%" class="table ticket table-striped b-light" >
+                    <thead class="tblhead-sm">
+                    <tr class="tblhead-sm">
+                        <th class="text-center"><b>User ID</b></th>
+                        <th class="text-center"><b>User Name</b></th>
+                    </tr>
+                    <tr>
+                    </tr>
+                    </thead>
+                    <tbody ng-hide="isChildLoading">
+                    <tr class="" ng-repeat="row in detaillist">
+                        <td class="text-center">{{row.extension}}</td>
+                        <td>{{row.called_no}}</td>
+                    </tr>
+                    </tbody>
+                    <tbody ng-show="isChildLoading">
+                    <tr>
+                        <td colspan="10" class="text-center"><i class="fa fa-spin fa-refresh"></i></td>
+                    </tr>
+                    </tbody>
+                    <tfoot ng-hide="isChildLoading">
+                    <tr ng-show="paginationOptions.totalItems > paginationOptions.pageSize">
+                        <td colspan="4" class="text-center">
+                            <div st-pagination="" st-items-by-page="paginationOptions.pageSize" st-displayed-pages="7" class="no-margin"></div>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
